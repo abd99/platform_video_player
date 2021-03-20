@@ -18,7 +18,7 @@ class AndroidVideoPlayer extends StatefulWidget {
 }
 
 class _AndroidVideoPlayerState extends State<AndroidVideoPlayer>
-    with WidgetsBindingObserver {
+    with WidgetsBindingObserver, AutomaticKeepAliveClientMixin {
   int id;
 
   @override
@@ -39,6 +39,7 @@ class _AndroidVideoPlayerState extends State<AndroidVideoPlayer>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return VisibilityDetector(
       key: widget.key,
       onVisibilityChanged: (info) {
@@ -72,6 +73,9 @@ class _AndroidVideoPlayerState extends State<AndroidVideoPlayer>
     }
     widget.onNativeWidgetCreated(NativeWidgetController._(id)..ping());
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class NativeWidgetController {
