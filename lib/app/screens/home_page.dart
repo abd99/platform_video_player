@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: BlocBuilder<VideosBloc, VideosState>(
         builder: (context, state) {
-          print(state);
+          debugPrint(state.toString());
           if (state is VideosInitial) {
             return Center(
               child: CircularProgressIndicator(
