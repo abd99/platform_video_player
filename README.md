@@ -1,16 +1,8 @@
-# platform_video_player
+# Platform Video Player
 
-A new Flutter project.
+A simple video player app that displays a native video player on Android using Platform View and ExoPlayer.
 
-## Getting Started
+## Screen Capture
+<img src="screen_capture/platform_video_player.gif" width="250">
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This project was done as a part of a coding assignment for a Flutter role.

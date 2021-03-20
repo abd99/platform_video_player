@@ -29,7 +29,7 @@ class VideosBloc extends Bloc<VideosEvent, VideosState> {
           videos: items,
         );
       } catch (e) {
-        print('VideoPlayerFailure: ${e.toString()}');
+        debugPrint('VideoPlayerFailure: ${e.toString()}');
         yield VideosError(e.toString());
       }
     }
