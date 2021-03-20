@@ -70,7 +70,8 @@ class _HomePageState extends State<HomePage> {
             }
             return ListView(
               children: listItems,
-              cacheExtent: 10,
+              cacheExtent: 30,
+              addAutomaticKeepAlives: true,
             );
           }
           return Center(
