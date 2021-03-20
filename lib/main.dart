@@ -89,10 +89,8 @@ class _HomePageState extends State<HomePage> {
             for (int index = 0; index < videos.length; index++) {
               listItems.addAll([
                 AndroidVideoPlayer(
-                  onNativeWidgetCreated: (controller) {
-                    controller.initialize();
-                  },
-                  key: ValueKey(index),
+                  videoURL: "URL",
+                  index: index,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(

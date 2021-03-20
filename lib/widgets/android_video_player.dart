@@ -7,10 +7,12 @@ typedef NativeWidgetCreatedCallback = void Function(
 
 class AndroidVideoPlayer extends StatefulWidget {
   AndroidVideoPlayer({
-    @required this.onNativeWidgetCreated,
-    @required Key key,
-  }) : super(key: key);
+    @required this.videoURL,
+    @required int index,
+    this.onNativeWidgetCreated,
+  }) : super(key: ValueKey(index));
 
+  final String videoURL;
   final NativeWidgetCreatedCallback onNativeWidgetCreated;
 
   @override
@@ -25,7 +27,7 @@ class _AndroidVideoPlayerState extends State<AndroidVideoPlayer>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
       case AppLifecycleState.paused:
-        widget.onNativeWidgetCreated(NativeWidgetController._(id)..pause());
+        NativeWidgetController._(id)..pause();
         break;
       default:
     }
@@ -45,7 +47,7 @@ class _AndroidVideoPlayerState extends State<AndroidVideoPlayer>
       onVisibilityChanged: (info) {
         debugPrint("${info.visibleFraction} of my widget is visible");
         if (info.visibleFraction <= 0) {
-          widget.onNativeWidgetCreated(NativeWidgetController._(id)..pause());
+          NativeWidgetController._(id)..pause();
         }
       },
       child: AspectRatio(
@@ -54,6 +56,9 @@ class _AndroidVideoPlayerState extends State<AndroidVideoPlayer>
           viewType: 'PlatformVideoPlayer.VIDEO_PLAYER',
           onPlatformViewCreated: _onPlatformViewCreated,
           creationParamsCodec: const StandardMessageCodec(),
+          creationParams: {
+            "url": widget.videoURL,
+          },
         ),
       ),
     );
@@ -67,11 +72,10 @@ class _AndroidVideoPlayerState extends State<AndroidVideoPlayer>
 
   void _onPlatformViewCreated(int id) {
     this.id = id;
-    debugPrint('PINGGGG: ID from AndroidView: $id');
-    if (widget.onNativeWidgetCreated == null) {
-      return;
+    debugPrint('AndroidView created #$id');
+    if (widget.onNativeWidgetCreated != null) {
+      widget.onNativeWidgetCreated(NativeWidgetController._(id));
     }
-    widget.onNativeWidgetCreated(NativeWidgetController._(id)..ping());
   }
 
   @override
@@ -86,10 +90,6 @@ class NativeWidgetController {
 
   Future<void> ping() async {
     return _channel.invokeMethod('ping');
-  }
-
-  Future<void> initialize() async {
-    return _channel.invokeMethod('initialize');
   }
 
   Future<void> pause() async {
