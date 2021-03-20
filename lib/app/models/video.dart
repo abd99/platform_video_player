@@ -2,5 +2,5 @@ class Video {
   final String title;
   final String url;
 
-  Video(this.title, this.url);
+  const Video(this.title, this.url);
 }
